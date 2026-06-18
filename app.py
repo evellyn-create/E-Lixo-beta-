@@ -21,14 +21,14 @@ def login():
         email = request.form.get('email')
         senha = request.form.get('senha')
         if email and senha:
-            return redirect(url_for('index'))
+            return render_template('index.html')
     return render_template('login.html')
 
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
     if request.method == 'POST':
-        return redirect(url_for('login'))
+        return render_template('login.html')
     return render_template('cadastro.html')
 
 
@@ -42,7 +42,7 @@ def registroderesiduo():
     residuos = ["Celular", "Notebook", "Bateria", "Carregador", "Televisor Antigo"]
     return render_template('registroderesiduo.html', residuos=residuos)
 
-# 6. ROTA DO GUIA DE DESCARTE (Usa Decisão 'if')
+
 @app.route('/guiadedescarte', methods=['GET', 'POST'])
 def guiadedescarte():
     mensagem = None
@@ -50,8 +50,7 @@ def guiadedescarte():
     
     if request.method == 'POST':
         categoria = request.form.get('categoria')
-        
-        # [Estrutura de Decisão] Comandos if/elif/else para definir a instrução
+    
         if categoria == "bateria":
             mensagem = "⚠️ ATENÇÃO: Baterias e pilhas possuem compostos químicos tóxicos. Devem ser embaladas em plástico seco e levadas apenas a pontos especializados."
         elif categoria == "computador":
@@ -63,12 +62,11 @@ def guiadedescarte():
 
     return render_template('guiadedescarte.html', mensagem=mensagem, categoria=categoria)
 
-# 7. ROTA SOBRE
 @app.route('/sobre')
 def sobre():
     return render_template('sobre.html')
 
-# 8. ROTA FALE CONOSCO
+
 @app.route('/faleconosco')
 def faleconosco():
     return render_template('faleconosco.html')
